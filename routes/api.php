@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\V1\AuthController;
+use App\Http\Controllers\V1\MovieController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::post('login', 'App\Http\Controllers\AuthController@login');
-Route::get('titles', 'App\Http\Controllers\MovieController@getTitles');
+Route::middleware('api')->group(function () {
+    Route::get('titles', [MovieController::class, 'getTitles']);
+    Route::post('login', [AuthController::class, 'login']);
+});
